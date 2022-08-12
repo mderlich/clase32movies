@@ -10,10 +10,14 @@
     <%- include('nav') %>
     <h1>PELIÍCULAS ORDENADASR FECHA</h1>
     <ul>
-        <% for( let i = 0; i < movies.length; i++ ) { %>
+        <% for( let i = 0; i < movies.length; i++ ) { 
+            let year = movies[i].release_date.getFullYear();
+            let month = ("0" + (movies[i].release_date.getMonth() + 1)).slice(-2);
+            let day = ("0" + movies[i].release_date.getDate().toString()).slice(-2);
+        %>
         <li>
             <a href="/movies/detail/<%=movies[i].id%>"><%= movies[i].title %> </a> <br>
-            <%= 'RELEASE DATE: ' + movies[i].release_date %> 
+            <%= 'RELEASE DATE: ' + year + '-' + month + '-' + day%> 
         </li>
         <% } %>
         
