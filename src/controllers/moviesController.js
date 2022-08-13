@@ -79,8 +79,12 @@ const moviesController = {
 
     edit: async function(req, res) {
         
-        const Movie = await db.Movie.findByPk(req.params.id);
-        const allGenres = await db.Genre.findAll();
+        // Al contar con >1 promesa, el await se hace en el Promise.all
+        const promesa1 = db.Movie.findByPk(req.params.id);
+        const promesa2 = db.Genre.findAll();
+
+        // Al contar con >1 promesa, es necesario el... Promise.all()
+        const [Movie, allGenres] = await Promise.all([promesa1, promesa2])
 
         let parseDate = {
             year: Movie.release_date.getFullYear(),
